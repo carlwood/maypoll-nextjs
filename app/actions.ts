@@ -5,6 +5,23 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+export const addCountryAction =  async (formData: FormData) => {
+  const country = formData.get("country")?.toString();
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("countries")
+    .insert({ name: country })
+    .select();
+
+  if (error) {
+    console.error("Error posting data:", error);
+    return;
+  }
+
+  console.log("Data posted successfully:", data);
+}
+
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
