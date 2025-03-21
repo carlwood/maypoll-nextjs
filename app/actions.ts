@@ -16,7 +16,7 @@ export const addCountryAction =  async (formData: FormData) => {
 
   if (error) {
     console.error("Error posting data:", error);
-    return;
+    return encodedRedirect("error", "/countries/create", error.message);
   }
 
   console.log("Data posted successfully:", data);
