@@ -5,6 +5,18 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+export const getAllCountries = async () => {
+  const supabase = await createClient();
+  const { data: countries, error } = await supabase.from("countries").select();
+
+  if (error) {
+    console.error("Error retrieving data:", error);
+    return;
+  }
+
+  return countries;
+}
+
 export const addCountryAction =  async (formData: FormData) => {
   const country = formData.get("country")?.toString();
   const supabase = await createClient();

@@ -1,14 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
+import { getAllCountries } from "../actions";
 
 export default async function Countries() {
-  const supabase = await createClient();
-  const { data: countries, error } = await supabase.from("countries").select();
-
-  if (error) {
-    console.error("Error retrieving data:", error);
-    return;
-  }
+  const countries = await getAllCountries();
 
   return (
     <>
